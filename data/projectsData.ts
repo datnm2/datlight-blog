@@ -8,17 +8,15 @@ interface Project {
 const projectsData: Project[] = [
   {
     title: 'Beincom - A Community Social Platform',
-    description: `Beincom - The Future Of Community Engagement
-Beincom is a social hub and community platform.
-
-We commit our users reach the contents without interference.`,
+    description: `Beincom is a modern social hub and community platform designed for seamless engagement.
+Users can access content freely, without interference or distractions.`,
     imgSrc: '/static/images/bic-logo-300x70.webp',
     href: 'https://www.beincom.com/',
   },
   {
     title: 'Crypto Technical Indicator Alert System',
-    description: `A Telegram bot that sends alerts based on technical indicators for cryptocurrencies.
-    Base on the data of Binance exchange.`,
+    description: `A Telegram bot that delivers alerts based on technical indicators for cryptocurrencies,
+using data from the Binance exchange.`,
     imgSrc: '/static/images/dat09signal.png',
     href: 'https://t.me/dat09signal',
   },
