@@ -1,15 +1,14 @@
 import 'css/prism.css'
 import 'katex/dist/katex.css'
 
-import PageTitle from '@/components/PageTitle'
 import { components } from '@/components/MDXComponents'
 import { MDXLayoutRenderer } from 'pliny/mdx-components'
 import { sortPosts, coreContent, allCoreContent } from 'pliny/utils/contentlayer'
 import { allBlogs, allAuthors } from 'contentlayer/generated'
 import type { Authors, Blog } from 'contentlayer/generated'
-import PostSimple from '@/layouts/PostSimple'
-import PostLayout from '@/layouts/PostLayout'
-import PostBanner from '@/layouts/PostBanner'
+import PostSimple from '@/layouts/PostSimpleWrapper'
+import PostLayout from '@/layouts/PostLayoutWrapper'
+import PostBanner from '@/layouts/PostBannerWrapper'
 import { Metadata } from 'next'
 import siteMetadata from '@/data/siteMetadata'
 import { notFound } from 'next/navigation'
@@ -80,16 +79,31 @@ export const generateStaticParams = async () => {
 export default async function Page(props: { params: Promise<{ slug: string[] }> }) {
   const params = await props.params
   const slug = decodeURI(params.slug.join('/'))
-  // Filter out drafts in production
-  const sortedCoreContents = allCoreContent(sortPosts(allBlogs))
+  const post = allBlogs.find((p) => p.slug === slug) as Blog
+
+  if (!post) {
+    return notFound()
+  }
+
+  // Get the language of the current post
+  const postLanguage = post.language || 'vi'
+
+  // Filter posts by the same language before sorting
+  const postsInSameLanguage = allBlogs.filter((p) => {
+    const pLanguage = p.language || 'vi'
+    return pLanguage === postLanguage
+  })
+
+  const sortedCoreContents = allCoreContent(sortPosts(postsInSameLanguage))
   const postIndex = sortedCoreContents.findIndex((p) => p.slug === slug)
+
   if (postIndex === -1) {
     return notFound()
   }
 
   const prev = sortedCoreContents[postIndex + 1]
   const next = sortedCoreContents[postIndex - 1]
-  const post = allBlogs.find((p) => p.slug === slug) as Blog
+
   const authorList = post?.authors || ['default']
   const authorDetails = authorList.map((author) => {
     const authorResults = allAuthors.find((p) => p.slug === author)

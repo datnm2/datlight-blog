@@ -1,0 +1,54 @@
+{
+  "nav": {
+    "home": "Trang chủ",
+    "blog": "Blog",
+    "tags": "Thẻ",
+    "projects": "Dự án",
+    "about": "Giới thiệu"
+  },
+  "home": {
+    "greeting": "Xin chào, tôi là",
+    "description": "Chào mừng đến với blog của tôi",
+    "latest": "Mới nhất",
+    "allPosts": "Tất cả bài viết",
+    "readMore": "Đọc thêm"
+  },
+  "blog": {
+    "allPosts": "Tất cả bài viết",
+    "readMore": "Đọc thêm",
+    "backToBlog": "Quay lại blog",
+    "noPostsFound": "Không tìm thấy bài viết nào.",
+    "publishedOn": "Xuất bản vào"
+  },
+  "post": {
+    "publishedOn": "Xuất bản vào",
+    "authors": "Tác giả",
+    "tags": "Thẻ",
+    "previousArticle": "Bài trước",
+    "nextArticle": "Bài tiếp",
+    "backToBlog": "Quay lại blog",
+    "discussOnTwitter": "Thảo luận trên Twitter",
+    "viewOnGithub": "Xem trên GitHub"
+  },
+  "tags": {
+    "allTags": "Tất cả thẻ",
+    "noTagsFound": "Không tìm thấy thẻ nào."
+  },
+  "projects": {
+    "title": "Dự án",
+    "description": "Xây dựng sản phẩm để giải quyết vấn đề thực tế hoặc chỉ để vui.",
+    "learnMore": "Tìm hiểu thêm"
+  },
+  "search": {
+    "placeholder": "Tìm kiếm bài viết",
+    "noResults": "Không tìm thấy bài viết nào."
+  },
+  "pagination": {
+    "previous": "Trước",
+    "next": "Tiếp"
+  },
+  "common": {
+    "minute": "phút",
+    "minuteRead": "phút đọc"
+  }
+}

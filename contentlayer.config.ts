@@ -61,23 +61,62 @@ const computedFields: ComputedFields = {
 
 /**
  * Count the occurrences of all tags across blog posts and write to json file
+ * Generate separate files for each language
  */
 async function createTagCount(allBlogs) {
-  const tagCount: Record<string, number> = {}
+  const tagCountAll: Record<string, number> = {}
+  const tagCountByLanguage: Record<string, Record<string, number>> = {
+    en: {},
+    vi: {},
+  }
+
   allBlogs.forEach((file) => {
     if (file.tags && (!isProduction || file.draft !== true)) {
+      const postLanguage = file.language || 'vi'
+
       file.tags.forEach((tag) => {
         const formattedTag = slug(tag)
-        if (formattedTag in tagCount) {
-          tagCount[formattedTag] += 1
+
+        // Count for all languages (for backward compatibility)
+        if (formattedTag in tagCountAll) {
+          tagCountAll[formattedTag] += 1
         } else {
-          tagCount[formattedTag] = 1
+          tagCountAll[formattedTag] = 1
+        }
+
+        // Count per language
+        if (postLanguage === 'en' || postLanguage === 'vi') {
+          if (formattedTag in tagCountByLanguage[postLanguage]) {
+            tagCountByLanguage[postLanguage][formattedTag] += 1
+          } else {
+            tagCountByLanguage[postLanguage][formattedTag] = 1
+          }
         }
       })
     }
   })
-  const formatted = await prettier.format(JSON.stringify(tagCount, null, 2), { parser: 'json' })
-  writeFileSync('./app/tag-data.json', formatted)
+
+  // Write all tags (backward compatibility)
+  const formattedAll = await prettier.format(JSON.stringify(tagCountAll, null, 2), {
+    parser: 'json',
+  })
+  writeFileSync('./app/tag-data.json', formattedAll)
+
+  // Write language-specific tag files
+  const formattedEn = await prettier.format(JSON.stringify(tagCountByLanguage.en, null, 2), {
+    parser: 'json',
+  })
+  writeFileSync('./app/tag-data-en.json', formattedEn)
+
+  const formattedVi = await prettier.format(JSON.stringify(tagCountByLanguage.vi, null, 2), {
+    parser: 'json',
+  })
+  writeFileSync('./app/tag-data-vi.json', formattedVi)
+
+  console.log('Generated tag data files:')
+  console.log(`  - tag-data.json (all: ${Object.keys(tagCountAll).length} tags)`)
+  console.log(`  - tag-data-en.json (en: ${Object.keys(tagCountByLanguage.en).length} tags)`)
+  console.log(`  - tag-data-vi.json (vi: ${Object.keys(tagCountByLanguage.vi).length} tags)`)
 }
 
 function createSearchIndex(allBlogs) {
@@ -109,6 +148,7 @@ export const Blog = defineDocumentType(() => ({
     layout: { type: 'string' },
     bibliography: { type: 'string' },
     canonicalUrl: { type: 'string' },
+    language: { type: 'string', default: 'vi' },
   },
   computedFields: {
     ...computedFields,

@@ -19,8 +19,10 @@
     "paths": {
       "@/components/*": ["components/*"],
       "@/data/*": ["data/*"],
+      "@/lib/*": ["lib/*"],
       "@/layouts/*": ["layouts/*"],
       "@/css/*": ["css/*"],
+      "@/locales/*": ["locales/*"],
       "contentlayer/generated": ["./.contentlayer/generated"],
       "pliny/*": ["node_modules/pliny/*"]
     },

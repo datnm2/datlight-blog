@@ -1,0 +1,54 @@
+{
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "tags": "Tags",
+    "projects": "Projects",
+    "about": "About"
+  },
+  "home": {
+    "greeting": "Hi, I'm",
+    "description": "Welcome to my blog",
+    "latest": "Latest",
+    "allPosts": "All Posts",
+    "readMore": "Read more"
+  },
+  "blog": {
+    "allPosts": "All Posts",
+    "readMore": "Read more",
+    "backToBlog": "Back to the blog",
+    "noPostsFound": "No posts found.",
+    "publishedOn": "Published on"
+  },
+  "post": {
+    "publishedOn": "Published on",
+    "authors": "Authors",
+    "tags": "Tags",
+    "previousArticle": "Previous Article",
+    "nextArticle": "Next Article",
+    "backToBlog": "Back to the blog",
+    "discussOnTwitter": "Discuss on Twitter",
+    "viewOnGithub": "View on GitHub"
+  },
+  "tags": {
+    "allTags": "All Tags",
+    "noTagsFound": "No tags found."
+  },
+  "projects": {
+    "title": "Projects",
+    "description": "Built products to solve real-life problems or just for fun.",
+    "learnMore": "Learn more"
+  },
+  "search": {
+    "placeholder": "Search articles",
+    "noResults": "No articles found."
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "common": {
+    "minute": "min",
+    "minuteRead": "min read"
+  }
+}

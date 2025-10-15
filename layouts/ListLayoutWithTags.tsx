@@ -7,8 +7,10 @@ import { CoreContent } from 'pliny/utils/contentlayer'
 import type { Blog } from 'contentlayer/generated'
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
-import siteMetadata from '@/data/siteMetadata'
-import tagData from 'app/tag-data.json'
+import { useLanguage } from '@/components/LanguageProvider'
+import { useMemo } from 'react'
+import tagDataEn from 'app/tag-data-en.json'
+import tagDataVi from 'app/tag-data-vi.json'
 
 interface PaginationProps {
   totalPages: number
@@ -23,21 +25,20 @@ interface ListLayoutProps {
 
 function Pagination({ totalPages, currentPage }: PaginationProps) {
   const pathname = usePathname()
-  const segments = pathname.split('/')
-  const lastSegment = segments[segments.length - 1]
   const basePath = pathname
     .replace(/^\//, '') // Remove leading slash
     .replace(/\/page\/\d+\/?$/, '') // Remove any trailing /page
     .replace(/\/$/, '') // Remove trailing slash
   const prevPage = currentPage - 1 > 0
   const nextPage = currentPage + 1 <= totalPages
+  const { t } = useLanguage()
 
   return (
     <div className="space-y-2 pt-6 pb-8 md:space-y-5">
       <nav className="flex justify-between">
         {!prevPage && (
           <button className="cursor-auto disabled:opacity-50" disabled={!prevPage}>
-            Previous
+            {t('pagination.previous')}
           </button>
         )}
         {prevPage && (
@@ -45,7 +46,7 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
             href={currentPage - 1 === 1 ? `/${basePath}/` : `/${basePath}/page/${currentPage - 1}`}
             rel="prev"
           >
-            Previous
+            {t('pagination.previous')}
           </Link>
         )}
         <span>
@@ -53,12 +54,12 @@ function Pagination({ totalPages, currentPage }: PaginationProps) {
         </span>
         {!nextPage && (
           <button className="cursor-auto disabled:opacity-50" disabled={!nextPage}>
-            Next
+            {t('pagination.next')}
           </button>
         )}
         {nextPage && (
           <Link href={`/${basePath}/page/${currentPage + 1}`} rel="next">
-            Next
+            {t('pagination.next')}
           </Link>
         )}
       </nav>
@@ -73,11 +74,17 @@ export default function ListLayoutWithTags({
   pagination,
 }: ListLayoutProps) {
   const pathname = usePathname()
-  const tagCounts = tagData as Record<string, number>
-  const tagKeys = Object.keys(tagCounts)
-  const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
+  const { locale, t } = useLanguage()
 
   const displayPosts = initialDisplayPosts.length > 0 ? initialDisplayPosts : posts
+
+  // Use pre-generated tag counts based on language
+  const tagCounts = useMemo(() => {
+    return locale === 'en' ? tagDataEn : tagDataVi
+  }, [locale]) as Record<string, number>
+
+  const tagKeys = Object.keys(tagCounts)
+  const sortedTags = tagKeys.sort((a, b) => tagCounts[b] - tagCounts[a])
 
   return (
     <>
@@ -91,13 +98,13 @@ export default function ListLayoutWithTags({
           <div className="hidden h-full max-h-screen max-w-[280px] min-w-[280px] flex-wrap overflow-auto rounded-sm bg-gray-50 pt-5 shadow-md sm:flex dark:bg-gray-900/70 dark:shadow-gray-800/40">
             <div className="px-6 py-4">
               {pathname.startsWith('/blog') ? (
-                <h3 className="text-primary-500 font-bold uppercase">All Posts</h3>
+                <h3 className="text-primary-500 font-bold uppercase">{t('blog.allPosts')}</h3>
               ) : (
                 <Link
                   href={`/blog`}
                   className="hover:text-primary-500 dark:hover:text-primary-500 font-bold text-gray-700 uppercase dark:text-gray-300"
                 >
-                  All Posts
+                  {t('blog.allPosts')}
                 </Link>
               )}
               <ul>
@@ -126,15 +133,15 @@ export default function ListLayoutWithTags({
           <div>
             <ul>
               {displayPosts.map((post) => {
-                const { path, date, title, summary, tags } = post
+                const { path, date, title: postTitle, summary, tags } = post
                 return (
                   <li key={path} className="py-5">
                     <article className="flex flex-col space-y-2 xl:space-y-0">
                       <dl>
-                        <dt className="sr-only">Published on</dt>
+                        <dt className="sr-only">{t('blog.publishedOn')}</dt>
                         <dd className="text-base leading-6 font-medium text-gray-500 dark:text-gray-400">
                           <time dateTime={date} suppressHydrationWarning>
-                            {formatDate(date, siteMetadata.locale)}
+                            {formatDate(date, locale === 'vi' ? 'vi-VN' : 'en-US')}
                           </time>
                         </dd>
                       </dl>
@@ -142,7 +149,7 @@ export default function ListLayoutWithTags({
                         <div>
                           <h2 className="text-2xl leading-8 font-bold tracking-tight">
                             <Link href={`/${path}`} className="text-gray-900 dark:text-gray-100">
-                              {title}
+                              {postTitle}
                             </Link>
                           </h2>
                           <div className="flex flex-wrap">
