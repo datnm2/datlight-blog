@@ -1,18 +1,16 @@
 {
-  "nlp": 1,
-  "psychology": 1,
-  "perception": 1,
-  "mindfulness": 1,
-  "cognitive-bias": 1,
+  "software-engineering": 1,
+  "documentation": 1,
+  "diagrams-as-code": 1,
+  "ai": 1,
   "algorithms": 1,
   "data-structures": 1,
   "performance": 1,
   "computer-science": 1,
   "tutorial": 1,
-  "software-engineering": 1,
-  "documentation": 1,
-  "mermaid": 1,
-  "eraser": 1,
-  "diagrams-as-code": 1,
-  "ai": 1
+  "nlp": 1,
+  "psychology": 1,
+  "perception": 1,
+  "mindfulness": 1,
+  "cognitive-bias": 1
 }

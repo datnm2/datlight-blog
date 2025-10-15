@@ -2,8 +2,8 @@
 const siteMetadata = {
   title: "Dat Light's Blog",
   author: 'Dat Nguyen',
-  headerTitle: "Dat Light's Blog",
-  description: 'My personal blog, sharing everything',
+  headerTitle: "Dat Light's Thoughts",
+  description: 'My personal blog, sharing everything in my mind',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://blog.dat09vn.com/',
