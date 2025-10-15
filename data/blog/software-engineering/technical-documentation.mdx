@@ -1,0 +1,122 @@
+---
+title: 'Tạo Technical Document Chưa Bao Giờ Nhẹ Nhàng Đến Vậy'
+date: '2025-10-15'
+tags: ['software-engineering', 'documentation', 'mermaid', 'eraser', 'diagrams-as-code', 'AI']
+draft: false
+summary: 'Việc tạo tech-docs, vốn là công việc rất tốn thời gian và nhàm chán mà ít developer chịu vui vẻ làm. Thì ngày nay, với sự phát triển vũ bão của AI, việc này trở nên cực kỳ nhẹ nhàng và đơn giản. Cùng tìm hiểu diagrams-as-code với Mermaid vs. Eraser nha'
+---
+
+# Mermaid vs. Eraser: Chiến Lược Sử Dụng Công Cụ Vẽ Sơ Đồ Cho Team Kỹ Thuật
+
+Trong bất kỳ dự án phần mềm nào, việc vẽ và duy trì các sơ đồ kỹ thuật luôn là một thách thức. **Sơ đồ lỗi thời còn tệ hơn là không có sơ đồ nào**. Giữa vô vàn công cụ, **Mermaid** và **Eraser** nổi lên như hai lựa chọn hàng đầu, nhưng chúng đại diện cho hai triết lý hoàn toàn khác nhau.
+
+Bài viết này sẽ phân tích sâu về cả hai, và đề xuất một chiến lược kết hợp thực tế để team của bạn tận dụng được thế mạnh của từng công cụ, thay vì phải chọn một bỏ một.
+
+![Công cụ Hỗ trợ So-đồ-hóa Phần Mềm](/static/images/post/technical-doc.png)
+
+---
+
+## 1. Phân Tích Sâu về Mermaid - "Chân Ái" Của Developer
+
+**Mermaid** là một công cụ "Diagrams as Code". Bạn dùng cú pháp văn bản giống như Markdown để định nghĩa sơ đồ, và nó sẽ được render thành hình ảnh. Đối với developer, đây là một cách tiếp cận cực kỳ tự nhiên.
+
+### Điểm mạnh cốt lõi
+
+#### 1. Sống chung với Code
+Sơ đồ Mermaid tồn tại dưới dạng text, nằm ngay trong file `README.md`, trong comment của code, hoặc trong mô tả Pull Request. Nó ở ngay nơi developer cần nó nhất.
+
+#### 2. Kiểm soát phiên bản tuyệt đối
+Vì là text, việc review thay đổi của sơ đồ qua git diff trở nên cực kỳ minh bạch. Bạn biết chính xác ai đã thêm service nào, ai đã thay đổi luồng dữ liệu nào. Đây là "killer feature" mà không công cụ trực quan nào có được.
+
+```diff
+-    A[Service A] -->|API Call| B(Service B)
++    A[Service A] -->|Message| MQ((Message Queue))
++    MQ --> B(Service B)
+```
+
+#### 3. Tốc độ và sự tập trung
+Chỉ cần bàn phím, không cần chuột. Bạn tập trung vào logic và luồng hoạt động, không phải bận tâm kéo thả, căn chỉnh pixel.
+
+#### 4. Được "khuếch đại" bởi AI
+Bạn không cần phải nhớ hết cú pháp. Chỉ cần mô tả cho ChatGPT, Claude hoặc Copilot, chúng sẽ sinh ra mã Mermaid cho bạn một cách nhanh chóng. Rào cản học tập gần như bằng không.
+
+### Điểm yếu cần cân nhắc
+
+- Không phù hợp để cộng tác brainstorm theo thời gian thực.
+- Khó diễn giải cho các thành viên không phải là dev (PM, Designer).
+- Hạn chế về thẩm mỹ và không linh hoạt cho các sơ đồ dạng tự do (free-form).
+
+> **Tóm lại:** Mermaid là công cụ hoàn hảo cho các sơ đồ chi tiết, mức độ thấp (low-level), cần được kiểm soát phiên bản chặt chẽ và gắn liền với vòng đời của code.
+
+---
+
+## 2. Khám Phá Eraser - Canvas Cộng Tác Cho Ý Tưởng Lớn
+
+**Eraser** là một canvas trực quan, ưu tiên sự cộng tác, được xây dựng chuyên cho việc thiết kế kiến trúc phần mềm. Hãy nghĩ về nó như Miro/Figma nhưng dành riêng cho kỹ sư.
+
+### Điểm mạnh cốt lõi
+
+#### 1. Cộng tác thời gian thực
+Đây là thế mạnh tuyệt đối của Eraser. Cả team (Dev, PM, SA, Designer) có thể cùng lúc tham gia một phiên họp, cùng nhau phác thảo kiến trúc, tranh luận và đưa ra quyết định ngay trên một bảng vẽ.
+
+#### 2. Trực quan và dễ hiểu
+Với thư viện icon phong phú (đặc biệt là icon chuẩn của AWS, GCP, Azure), các sơ đồ kiến trúc trở nên cực kỳ rõ ràng và chuyên nghiệp. Điều này giúp mọi người, kể cả non-dev, đều hiểu được ý tưởng lớn.
+
+#### 3. Không gian cho sự sáng tạo
+Eraser là một whiteboard vô tận. Bạn có thể tự do phác thảo, ghi chú, vẽ nguệch ngoạc các ý tưởng ban đầu trước khi đi đến một thiết kế hoàn chỉnh.
+
+#### 4. AI tích hợp tương tác
+AI của Eraser không chỉ sinh ra sơ đồ một lần. Nó hoạt động như một "trợ lý thiết kế", cho phép bạn ra lệnh để tinh chỉnh lặp đi lặp lại ngay trên canvas (ví dụ: "Thêm một load balancer phía trước cụm service user").
+
+### Điểm yếu cần cân nhắc
+
+- Việc kiểm soát phiên bản qua Git gần như là không thể.
+- Yêu cầu chuyển đổi ngữ cảnh (từ IDE/code editor sang trình duyệt).
+- Có thể là "quá mức cần thiết" cho một sơ đồ đơn giản giải thích một hàm logic nhỏ.
+
+> **Tóm lại:** Eraser tỏa sáng ở các sơ đồ kiến trúc tổng quan, mức độ cao (high-level), nơi sự cộng tác, giao tiếp và phác thảo ý tưởng được đặt lên hàng đầu.
+
+---
+
+## 3. Chiến Lược Kết Hợp: "High-Level" Dùng Eraser, "Low-Level" Dùng Mermaid
+
+Rõ ràng, việc bắt cả team chỉ chọn một trong hai sẽ tạo ra những thiếu sót trong quy trình. Thay vào đó, hãy áp dụng một mô hình kết hợp thực tế:
+
+### A. Giai đoạn Thiết kế & Lên ý tưởng (High-Level) → Dùng Eraser
+
+**Mục đích:**
+- Brainstorm kiến trúc cho tính năng mới
+- Quyết định luồng dữ liệu tổng quan giữa các microservices
+- Thiết kế cơ sở hạ tầng cloud
+
+**Ai tham gia:** Toàn bộ team (Dev, TechLead, SA)
+
+**Kết quả:** Một (hoặc nhiều) sơ đồ kiến trúc hệ thống rõ ràng, được cả team thống nhất. Sơ đồ này sẽ được nhúng vào tài liệu tổng quan trên Confluence/Notion.
+
+### B. Giai đoạn Triển khai & Tài liệu hóa (Low-Level) → Dùng Mermaid
+
+**Mục đích:**
+- Vẽ một sequence diagram để giải thích các bước của một API endpoint phức tạp
+- Tạo một flowchart để mô tả logic của một thuật toán quan trọng
+- Thiết kế một sơ đồ quan hệ thực thể (ERD) cho một vài bảng database mới
+
+**Ai tham gia:** Developer chịu trách nhiệm chính cho phần code đó
+
+**Kết quả:** Các đoạn mã Mermaid nằm ngay trong mô tả Pull Request, trong file `README.md` của service, hoặc thậm chí trong comment của code. Sơ đồ này sẽ được cập nhật cùng với code.
+
+---
+
+## Kết Luận
+
+Câu hỏi không nên là "chọn Mermaid hay Eraser?". Câu hỏi đúng phải là **"Khi nào dùng Mermaid và khi nào dùng Eraser?"**.
+
+- **Eraser** dành cho những cuộc thảo luận, cho bức tranh toàn cảnh, cho sự cộng tác giữa các bộ phận. Phù hợp high level design hoặc kiến trúc tổng phức tạp
+- **Mermaid** dành cho developer, cho những chi tiết kỹ thuật, cho tài liệu sống cùng với code. Phù hợp low level design
+
+Bằng cách kết hợp cả hai, team của bạn sẽ có được một hệ thống tài liệu trực quan, đa tầng, dễ dàng tạo ra và quan trọng nhất là **dễ dàng bảo trì**.
+
+---
+
+<aside>
+💡 **Pro tip:** Hãy thiết lập quy chuẩn rõ ràng trong team về việc khi nào dùng công cụ nào. Điều này giúp tránh sự lẫn lộn và đảm bảo tài liệu được duy trì một cách nhất quán.
+</aside>

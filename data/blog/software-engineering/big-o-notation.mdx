@@ -1,0 +1,337 @@
+---
+title: 'Big O Notation - Hướng Dẫn Từ A-Z'
+date: '2025-10-15'
+tags: ['algorithms', 'data-structures', 'performance', 'computer-science', 'tutorial']
+draft: false
+summary: 'Hướng dẫn chi tiết về Big O Notation - cách đo lường hiệu suất thuật toán từ cơ bản đến nâng cao. Tìm hiểu các độ phức tạp phổ biến với ví dụ thực tế bằng TypeScript.'
+---
+
+
+# Big O Notation - Người Bạn "To Lớn" Của Developer 🚀
+
+Hãy tưởng tượng bạn đang tìm tên crush trong danh bạ điện thoại. Nếu danh bạ có 10 người, bạn tìm nhanh. Nhưng nếu có 10,000 người thì sao? Đó chính là lúc Big O xuất hiện như một vị cứu tinh!
+
+## Big O Là Gì?
+
+Big O Notation là cách chúng ta đo lường xem thuật toán của mình "chậm như rùa" hay "nhanh như Flash" khi lượng dữ liệu tăng lên. Nó không quan tâm máy bạn xịn cỡ nào, mà chỉ quan tâm thuật toán có "scale" được không.
+
+---
+
+# 🏆 Bảng Xếp Hạng Big O - Từ "Tia Chớp" Đến "Rùa Bò"
+![Big O Complexity](/static/images/post/big-o.png)
+
+## 1. O(1) - Constant Time ⚡️ "Siêu Tốc"
+
+Dù có 1 hay 1 triệu phần tử, tốc độ vẫn như nhau. Đây là cực phẩm!
+
+```tsx
+// Truy cập phần tử qua index hoặc key
+const getItemFromHashMap = (map: Map<string, number>, key: string): number | undefined => {
+    return map.get(key); // Luôn 1 bước!
+}
+
+// Lấy phần tử theo index - LUÔN nhanh!
+function getFirstStudent(students: string[]): string {
+    return students[0]; // Boom! Xong ngay!
+}
+```
+
+## 2. O(log n) - Logarithmic Time 🏃‍♂️ "Rất Nhanh"
+
+Mỗi bước loại bỏ một nửa khả năng. Như trò chơi đoán số!
+
+```tsx
+// Binary Search - Chia đôi mỗi bước
+function binarySearch(sortedArray: number[], target: number): number {
+    let left = 0;
+    let right = sortedArray.length - 1;
+    
+    while (left <= right) {
+        const mid = Math.floor((left + right) / 2);
+        if (sortedArray[mid] === target) return mid;
+        
+        // Loại bỏ một nửa mảng
+        if (sortedArray[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return -1;
+}
+// 1,000 phần tử = ~10 bước
+// 1,000,000 phần tử = ~20 bước (Quá ngon! 🎉)
+```
+
+## 3. O(n) - Linear Time 🚶‍♂️ "Bình Thường"
+
+Càng nhiều dữ liệu, càng mất nhiều thời gian theo tỷ lệ thuận.
+
+```tsx
+// Duyệt qua danh sách một lần
+function findMax(numbers: number[]): number {
+    let max = numbers[0];
+    for (const num of numbers) { // Duyệt n phần tử
+        if (num > max) max = num;
+    }
+    return max;
+}
+// 30 học sinh = 30 lần kiểm tra
+// 300 học sinh = 300 lần kiểm tra
+```
+
+## 4. O(n log n) - Linearithmic Time 🚴‍♂️ "Chấp Nhận Được"
+
+Các thuật toán sắp xếp hiệu quả như Merge Sort, Quick Sort.
+
+```tsx
+// Merge Sort - Chia để trị
+function mergeSort(array: number[]): number[] {
+    if (array.length <= 1) return array;
+    
+    const mid = Math.floor(array.length / 2);
+    const left = mergeSort(array.slice(0, mid));
+    const right = mergeSort(array.slice(mid));
+    
+    return merge(left, right); // Chia log n lần, merge n phần tử
+}
+
+function merge(left: number[], right: number[]): number[] {
+    const result: number[] = [];
+    let i = 0, j = 0;
+    
+    while (i < left.length && j < right.length) {
+        if (left[i] <= right[j]) {
+            result.push(left[i++]);
+        } else {
+            result.push(right[j++]);
+        }
+    }
+    
+    return result.concat(left.slice(i)).concat(right.slice(j));
+}
+```
+
+## 5. O(n²) - Quadratic Time 🐌 "Chậm"
+
+Bắt đầu thấy "lag" khi dữ liệu lớn. Như việc so sánh từng cặp trong lớp.
+
+```tsx
+// Bubble Sort hoặc vòng lặp lồng nhau
+function bubbleSort(array: number[]): number[] {
+    const arr = [...array];
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr.length - 1 - i; j++) {
+            if (arr[j] > arr[j + 1]) {
+                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+            }
+        }
+    }
+    return arr;
+}
+// 10 học sinh = ~45 so sánh
+// 100 học sinh = ~4,950 so sánh (Ôi không! 😱)
+```
+
+## 6. O(n³) - Cubic Time 🐢 "Rất Chậm"
+
+Ba vòng lặp lồng nhau - thường gặp trong xử lý ma trận.
+
+```tsx
+// Nhân ma trận - 3 vòng lặp lồng nhau
+function multiplyMatrices(a: number[][], b: number[][]): number[][] {
+    const n = a.length;
+    const result: number[][] = Array(n).fill(0).map(() => Array(n).fill(0));
+    
+    for (let i = 0; i < n; i++) {
+        for (let j = 0; j < n; j++) {
+            for (let k = 0; k < n; k++) {
+                result[i][j] += a[i][k] * b[k][j];
+            }
+        }
+    }
+    return result;
+}
+```
+
+## 7. O(2ⁿ) - Exponential Time 💀 "Cực Kỳ Chậm"
+
+Mỗi bước tăng gấp đôi số phép tính!
+
+```tsx
+// Fibonacci đệ quy naive (không cache)
+function fibonacci(n: number): number {
+    if (n <= 1) return n;
+    
+    // Mỗi call tạo ra 2 call khác!
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+// n=20: ~20,000 calls
+// n=40: ~2 tỷ calls 😱
+```
+
+## 8. O(n!) - Factorial Time ☠️ "Thảm Họa"
+
+Tìm tất cả hoán vị - tăng cực nhanh!
+
+```tsx
+// Tìm tất cả hoán vị (permutations)
+function getPermutations(array: string[]): string[][] {
+    if (array.length <= 1) return [array];
+    
+    const result: string[][] = [];
+    for (let i = 0; i < array.length; i++) {
+        const current = array[i];
+        const remaining = array.filter((_, index) => index !== i);
+        const perms = getPermutations(remaining);
+        
+        for (const perm of perms) {
+            result.push([current, ...perm]);
+        }
+    }
+    return result;
+}
+// 10 items = 3,628,800 permutations!
+```
+
+---
+
+# 📊 So Sánh Trực Quan
+
+| **Big O** | **n = 10** | **n = 100** | **n = 1,000** | **Đánh Giá** |
+| --- | --- | --- | --- | --- |
+| O(1) | 1 | 1 | 1 | ⚡️ Tuyệt vời! |
+| O(log n) | ~3 | ~7 | ~10 | ✨ Xuất sắc |
+| O(n) | 10 | 100 | 1,000 | 👍 Tốt |
+| O(n log n) | ~30 | ~700 | ~10,000 | 🤔 OK |
+| O(n²) | 100 | 10,000 | 1,000,000 | 😰 Chậm |
+| O(2ⁿ) | 1,024 | 1.2×10³⁰ | ♾️ | 💀 Kinh khủng |
+| O(n!) | 3,628,800 | 9.3×10¹⁵⁷ | ☠️ | ☠️ Thảm họa |
+
+---
+
+## 📊 Cheat Sheet
+
+### Các Cấu Trúc Dữ Liệu Phổ Biến
+
+| **Data Structure** | **Access** | **Search** | **Insert** | **Delete** |
+| --- | --- | --- | --- | --- |
+| Array | O(1) | O(n) | O(n) | O(n) |
+| Linked List | O(n) | O(n) | O(1) | O(1) |
+| Hash Table | N/A | O(1) | O(1) | O(1) |
+| Binary Search Tree | O(log n) | O(log n) | O(log n) | O(log n) |
+
+### Các Thuật Toán Sắp Xếp
+
+| **Algorithm** | **Best** | **Average** | **Worst** | **Space** |
+| --- | --- | --- | --- | --- |
+| Bubble Sort | O(n) | O(n²) | O(n²) | O(1) |
+| Quick Sort | O(n log n) | O(n log n) | O(n²) | O(log n) |
+| Merge Sort | O(n log n) | O(n log n) | O(n log n) | O(n) |
+| Heap Sort | O(n log n) | O(n log n) | O(n log n) | O(1) |
+
+---
+
+# 🎯 Ví Dụ Thực Tế: Quản Lý Lớp Học
+
+```tsx
+interface Student {
+    id: string;
+    name: string;
+    homework: boolean;
+    score: number;
+}
+
+class ClassroomManager {
+    private students: Student[] = [];
+    private studentMap: Map<string, Student> = new Map();
+    
+    // O(1) - Kiểm tra sĩ số (chỉ đọc thuộc tính)
+    getClassSize(): number {
+        return this.students.length; // Instant!
+    }
+    
+    // O(1) với Map - Tìm học sinh theo ID (thông minh!)
+    findStudentById(id: string): Student | undefined {
+        return this.studentMap.get(id); // Tra cứu trực tiếp!
+    }
+    
+    // O(n) - Điểm danh cả lớp
+    checkAttendance(): string[] {
+        const presentStudents: string[] = [];
+        
+        // Phải gọi tên TỪNG bạn
+        for (const student of this.students) {
+            presentStudents.push([student.name](http://student.name));
+        }
+        
+        return presentStudents;
+    }
+    
+    // O(n) với Array - Tìm học sinh theo ID (cách cũ)
+    findStudentByIdSlow(id: string): Student | undefined {
+        // Phải lục tung cả danh sách
+        return this.students.find(student => [student.id](http://student.id) === id);
+    }
+    
+    // O(n log n) - Sắp xếp học sinh theo điểm
+    sortByScore(): Student[] {
+        return [...this.students].sort((a, b) => b.score - a.score);
+    }
+    
+    // O(n²) - So sánh từng cặp học sinh
+    findStudyPairs(): Array<[Student, Student]> {
+        const pairs: Array<[Student, Student]> = [];
+        
+        for (let i = 0; i < this.students.length; i++) {
+            for (let j = i + 1; j < this.students.length; j++) {
+                // Logic ghép cặp học tập
+                if (Math.abs(this.students[i].score - this.students[j].score) < 10) {
+                    pairs.push([this.students[i], this.students[j]]);
+                }
+            }
+        }
+        
+        return pairs;
+    }
+}
+```
+
+---
+
+# 💡 Tips Vàng Để Nhớ
+
+### Cách Nhớ Đơn Giản:
+
+- **O(1)**: Như mở tủ lấy đồ - biết chính xác vị trí
+- **O(log n)**: Như tra từ điển - mở giữa, rồi quyết định trái/phải
+- **O(n)**: Như đọc một cuốn sách - phải đọc từng trang
+- **O(n log n)**: Như sắp xếp bài - chia nhóm rồi gộp lại
+- **O(n²)**: Như so sánh từng đôi giày với từng bộ quần áo - mệt!
+- **O(2ⁿ)**: Như cây phả hệ - mỗi người có 2 con, cháu tăng theo cấp số nhân
+- **O(n!)**: Như xếp hàng chụp ảnh - càng nhiều người càng nhiều cách xếp
+
+### Lưu Ý Thực Tế:
+
+> 📌 **Cần nhớ:** Trong thực tế, với data nhỏ (n < 100), thuật toán O(n²) đôi khi còn nhanh hơn O(n log n) do overhead thấp. Nhưng khi n lớn, Big O mới thực sự "hiện nguyên hình"!
+> 
+
+> ⚠️ **Cảnh báo:** Lần sau khi viết vòng lặp trong vòng lặp, hãy nhớ rằng Big O đang nhìn bạn và thì thầm: "Bạn chắc chứ? 🤔"
+> 
+
+---
+
+# 🚀 Kết Luận
+
+Big O không phải là thứ gì đó cao siêu. Nó chỉ là cách giúp bạn đánh giá xem code của mình có "chịu nổi" khi phải xử lý data lớn không.
+
+Happy coding! Và nhớ rằng: **Code nhanh không quan trọng bằng code nhanh *khi data lớn*!** 🚀
+
+---
+
+<aside>
+💡
+
+**Pro tip:** Khi phỏng vấn, người ta thường hỏi Big O của solution của bạn. Hãy luôn sẵn sàng phân tích và có thể suggest cách optimize từ O(n²) xuống O(n log n) hoặc thậm chí O(n)!
+
+</aside>

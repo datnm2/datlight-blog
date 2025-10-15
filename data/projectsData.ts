@@ -7,20 +7,20 @@ interface Project {
 
 const projectsData: Project[] = [
   {
-    title: 'A Search Engine',
-    description: `What if you could look up any information in the world? Webpages, images, videos
-    and more. Google has many features to help you find exactly what you're looking
-    for.`,
-    imgSrc: '/static/images/google.png',
-    href: 'https://www.google.com',
+    title: 'Beincom - A Community Social Platform',
+    description: `Beincom - The Future Of Community Engagement
+Beincom is a social hub and community platform.
+
+We commit our users reach the contents without interference.`,
+    imgSrc: '/static/images/bic-logo-300x70.webp',
+    href: 'https://www.beincom.com/',
   },
   {
-    title: 'The Time Machine',
-    description: `Imagine being able to travel back in time or to the future. Simple turn the knob
-    to the desired date and press "Go". No more worrying about lost keys or
-    forgotten headphones with this simple yet affordable solution.`,
-    imgSrc: '/static/images/time-machine.jpg',
-    href: '/blog/the-time-machine',
+    title: 'Crypto Technical Indicator Alert System',
+    description: `A Telegram bot that sends alerts based on technical indicators for cryptocurrencies.
+    Base on the data of Binance exchange.`,
+    imgSrc: '/static/images/dat09signal.png',
+    href: 'https://t.me/dat09signal',
   },
 ]
 
