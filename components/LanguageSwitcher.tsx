@@ -54,7 +54,7 @@ export default function LanguageSwitcher() {
   return (
     <button
       onClick={toggleLanguage}
-      className="hover:text-primary-500 dark:hover:text-primary-400 mr-1 ml-1 h-8 w-8 rounded p-1 sm:ml-4"
+      className="hover:text-primary-500 dark:hover:text-primary-400 h-8 w-8 rounded p-1"
       title={`Switch to ${locale === 'en' ? 'Tiếng Việt' : 'English'}`}
       aria-label={`Switch to ${locale === 'en' ? 'Vietnamese' : 'English'}`}
     >
