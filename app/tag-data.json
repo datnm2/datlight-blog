@@ -1,18 +1,18 @@
 {
-  "software-engineering": 1,
-  "documentation": 1,
-  "diagrams-as-code": 1,
-  "ai": 1,
+  "nlp": 2,
+  "psychology": 1,
+  "perception": 1,
+  "mindfulness": 1,
+  "cognitive-bias": 1,
   "algorithms": 2,
   "data-structures": 2,
   "performance": 2,
   "computer-science": 2,
   "tutorial": 2,
-  "nlp": 2,
   "tâm-lý-học": 1,
   "tỉnh-thức": 1,
-  "psychology": 1,
-  "perception": 1,
-  "mindfulness": 1,
-  "cognitive-bias": 1
+  "software-engineering": 1,
+  "documentation": 1,
+  "diagrams-as-code": 1,
+  "ai": 1
 }

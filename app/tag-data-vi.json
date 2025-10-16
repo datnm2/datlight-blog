@@ -1,14 +1,14 @@
 {
-  "software-engineering": 1,
-  "documentation": 1,
-  "diagrams-as-code": 1,
-  "ai": 1,
+  "nlp": 1,
+  "tâm-lý-học": 1,
+  "tỉnh-thức": 1,
   "algorithms": 1,
   "data-structures": 1,
   "performance": 1,
   "computer-science": 1,
   "tutorial": 1,
-  "nlp": 1,
-  "tâm-lý-học": 1,
-  "tỉnh-thức": 1
+  "software-engineering": 1,
+  "documentation": 1,
+  "diagrams-as-code": 1,
+  "ai": 1
 }

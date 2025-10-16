@@ -1,12 +1,12 @@
 {
-  "algorithms": 1,
-  "data-structures": 1,
-  "performance": 1,
-  "computer-science": 1,
-  "tutorial": 1,
   "nlp": 1,
   "psychology": 1,
   "perception": 1,
   "mindfulness": 1,
-  "cognitive-bias": 1
+  "cognitive-bias": 1,
+  "algorithms": 1,
+  "data-structures": 1,
+  "performance": 1,
+  "computer-science": 1,
+  "tutorial": 1
 }
