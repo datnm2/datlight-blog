@@ -6,6 +6,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a Next.js blog built with Tailwind CSS v4, TypeScript, and Contentlayer for managing MDX content. The blog supports multi-language content (English and Vietnamese) with custom i18n implementation.
 
+## Content Creation Guidelines
+
+**IMPORTANT**: When creating, writing, or editing blog content (MDX files in `data/blog/`), you MUST refer to and follow the guidelines in `CONTENT_CREATOR_GUIDE.md`. This file contains:
+- Master prompts for content creation (short and full versions)
+- Minh Đạt's writing style and tone
+- Content structure templates
+- Writing techniques and best practices
+- Checklist before publishing
+
+Always consult `CONTENT_CREATOR_GUIDE.md` before generating any blog post content to ensure consistency with the blog's voice and quality standards.
+
 ## Development Commands
 
 ```bash

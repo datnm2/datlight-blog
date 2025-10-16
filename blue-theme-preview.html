@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Theme Preview - Choose Your Palette</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .palettes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .palette {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .palette:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+        }
+
+        .palette-header {
+            margin-bottom: 1rem;
+        }
+
+        .palette-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .palette-desc {
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .color-swatches {
+            display: flex;
+            gap: 0.25rem;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .swatch {
+            flex: 1;
+            height: 60px;
+        }
+
+        .demo-section {
+            margin-top: 1rem;
+        }
+
+        .demo-button {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .demo-link {
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid;
+            padding-bottom: 2px;
+        }
+
+        .demo-heading {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .demo-card {
+            border: 2px solid;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .instructions {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .instructions h2 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .instructions ol {
+            margin-left: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .instructions code {
+            background: #f3f4f6;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #e11d48;
+        }
+
+        /* Dark mode toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        body.dark {
+            background: #1a1a2e;
+        }
+
+        body.dark .palette {
+            background: #16213e;
+            color: #e4e4e7;
+        }
+
+        body.dark .palette-desc {
+            color: #a1a1aa;
+        }
+
+        body.dark .demo-card {
+            background: rgba(255,255,255,0.05);
+        }
+
+        body.dark .instructions {
+            background: #16213e;
+            color: #e4e4e7;
+        }
+
+        body.dark .instructions h2 {
+            color: #e4e4e7;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 Toggle Dark Mode</button>
+
+    <div class="container">
+        <h1>🎨 Choose Your Blue Theme</h1>
+        <p class="subtitle">Preview 5 professionally-designed blue palettes for your blog</p>
+
+        <div class="palettes">
+            <!-- Option 1: Sky Blue -->
+            <div class="palette">
+                <div class="palette-header">
+                    <div class="palette-name" style="color: oklch(0.6 0.15 230)">1. Sky Blue ☀️</div>
+                    <div class="palette-desc">Light, vibrant, optimistic - perfect for tech blogs and modern portfolios</div>
+                </div>
+                <div class="color-swatches">
+                    <div class="swatch" style="background: oklch(0.971 0.02 230)"></div>
+                    <div class="swatch" style="background: oklch(0.918 0.05 230)"></div>
+                    <div class="swatch" style="background: oklch(0.85 0.09 230)"></div>
+                    <div class="swatch" style="background: oklch(0.75 0.13 230)"></div>
+                    <div class="swatch" style="background: oklch(0.65 0.16 230)"></div>
+                    <div class="swatch" style="background: oklch(0.6 0.15 230)"></div>
+                    <div class="swatch" style="background: oklch(0.52 0.13 230)"></div>
+                    <div class="swatch" style="background: oklch(0.45 0.11 230)"></div>
+                </div>
+                <div class="demo-section">
+                    <button class="demo-button" style="background: oklch(0.6 0.15 230); color: white">Primary Button</button>
+                    <a href="#" class="demo-link" style="color: oklch(0.6 0.15 230); border-color: oklch(0.6 0.15 230)">Sample Link</a>
+                    <h3 class="demo-heading" style="color: oklch(0.6 0.15 230)">Heading Style</h3>
+                    <div class="demo-card" style="border-color: oklch(0.75 0.13 230)">
+                        <p>Card with border accent</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Option 2: Ocean Blue -->
+            <div class="palette">
+                <div class="palette-header">
+                    <div class="palette-name" style="color: oklch(0.55 0.16 235)">2. Ocean Blue 🌊</div>
+                    <div class="palette-desc">Balanced, professional, trustworthy - ideal for corporate and educational content</div>
+                </div>
+                <div class="color-swatches">
+                    <div class="swatch" style="background: oklch(0.97 0.02 235)"></div>
+                    <div class="swatch" style="background: oklch(0.91 0.05 235)"></div>
+                    <div class="swatch" style="background: oklch(0.82 0.10 235)"></div>
+                    <div class="swatch" style="background: oklch(0.72 0.14 235)"></div>
+                    <div class="swatch" style="background: oklch(0.62 0.17 235)"></div>
+                    <div class="swatch" style="background: oklch(0.55 0.16 235)"></div>
+                    <div class="swatch" style="background: oklch(0.48 0.14 235)"></div>
+                    <div class="swatch" style="background: oklch(0.42 0.12 235)"></div>
+                </div>
+                <div class="demo-section">
+                    <button class="demo-button" style="background: oklch(0.55 0.16 235); color: white">Primary Button</button>
+                    <a href="#" class="demo-link" style="color: oklch(0.55 0.16 235); border-color: oklch(0.55 0.16 235)">Sample Link</a>
+                    <h3 class="demo-heading" style="color: oklch(0.55 0.16 235)">Heading Style</h3>
+                    <div class="demo-card" style="border-color: oklch(0.72 0.14 235)">
+                        <p>Card with border accent</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Option 3: Royal Blue -->
+            <div class="palette">
+                <div class="palette-header">
+                    <div class="palette-name" style="color: oklch(0.58 0.18 250)">3. Royal Blue 👑</div>
+                    <div class="palette-desc">Rich, bold, sophisticated - great for premium content and creative portfolios</div>
+                </div>
+                <div class="color-swatches">
+                    <div class="swatch" style="background: oklch(0.97 0.02 250)"></div>
+                    <div class="swatch" style="background: oklch(0.90 0.06 250)"></div>
+                    <div class="swatch" style="background: oklch(0.81 0.11 250)"></div>
+                    <div class="swatch" style="background: oklch(0.71 0.16 250)"></div>
+                    <div class="swatch" style="background: oklch(0.64 0.19 250)"></div>
+                    <div class="swatch" style="background: oklch(0.58 0.18 250)"></div>
+                    <div class="swatch" style="background: oklch(0.50 0.15 250)"></div>
+                    <div class="swatch" style="background: oklch(0.43 0.13 250)"></div>
+                </div>
+                <div class="demo-section">
+                    <button class="demo-button" style="background: oklch(0.58 0.18 250); color: white">Primary Button</button>
+                    <a href="#" class="demo-link" style="color: oklch(0.58 0.18 250); border-color: oklch(0.58 0.18 250)">Sample Link</a>
+                    <h3 class="demo-heading" style="color: oklch(0.58 0.18 250)">Heading Style</h3>
+                    <div class="demo-card" style="border-color: oklch(0.71 0.16 250)">
+                        <p>Card with border accent</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Option 4: Navy Blue -->
+            <div class="palette">
+                <div class="palette-header">
+                    <div class="palette-name" style="color: oklch(0.52 0.15 240)">4. Navy Blue 🌌</div>
+                    <div class="palette-desc">Deep, professional, focused - perfect for technical documentation and developer blogs</div>
+                </div>
+                <div class="color-swatches">
+                    <div class="swatch" style="background: oklch(0.97 0.02 240)"></div>
+                    <div class="swatch" style="background: oklch(0.89 0.05 240)"></div>
+                    <div class="swatch" style="background: oklch(0.79 0.09 240)"></div>
+                    <div class="swatch" style="background: oklch(0.68 0.13 240)"></div>
+                    <div class="swatch" style="background: oklch(0.58 0.16 240)"></div>
+                    <div class="swatch" style="background: oklch(0.52 0.15 240)"></div>
+                    <div class="swatch" style="background: oklch(0.45 0.13 240)"></div>
+                    <div class="swatch" style="background: oklch(0.38 0.11 240)"></div>
+                </div>
+                <div class="demo-section">
+                    <button class="demo-button" style="background: oklch(0.52 0.15 240); color: white">Primary Button</button>
+                    <a href="#" class="demo-link" style="color: oklch(0.52 0.15 240); border-color: oklch(0.52 0.15 240)">Sample Link</a>
+                    <h3 class="demo-heading" style="color: oklch(0.52 0.15 240)">Heading Style</h3>
+                    <div class="demo-card" style="border-color: oklch(0.68 0.13 240)">
+                        <p>Card with border accent</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Option 5: Cyan Blue -->
+            <div class="palette">
+                <div class="palette-header">
+                    <div class="palette-name" style="color: oklch(0.62 0.14 210)">5. Cyan Blue ⚡</div>
+                    <div class="palette-desc">Energetic, techy, modern - excellent for tech startups and innovation-focused sites</div>
+                </div>
+                <div class="color-swatches">
+                    <div class="swatch" style="background: oklch(0.97 0.02 210)"></div>
+                    <div class="swatch" style="background: oklch(0.92 0.05 210)"></div>
+                    <div class="swatch" style="background: oklch(0.84 0.09 210)"></div>
+                    <div class="swatch" style="background: oklch(0.74 0.12 210)"></div>
+                    <div class="swatch" style="background: oklch(0.66 0.15 210)"></div>
+                    <div class="swatch" style="background: oklch(0.62 0.14 210)"></div>
+                    <div class="swatch" style="background: oklch(0.54 0.12 210)"></div>
+                    <div class="swatch" style="background: oklch(0.46 0.10 210)"></div>
+                </div>
+                <div class="demo-section">
+                    <button class="demo-button" style="background: oklch(0.62 0.14 210); color: white">Primary Button</button>
+                    <a href="#" class="demo-link" style="color: oklch(0.62 0.14 210); border-color: oklch(0.62 0.14 210)">Sample Link</a>
+                    <h3 class="demo-heading" style="color: oklch(0.62 0.14 210)">Heading Style</h3>
+                    <div class="demo-card" style="border-color: oklch(0.74 0.12 210)">
+                        <p>Card with border accent</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h2>📋 How to Apply Your Chosen Theme</h2>
+            <ol>
+                <li>Look at each palette above and test both light and dark modes (toggle button)</li>
+                <li>Choose your favorite option (1-5)</li>
+                <li>Tell Claude: <code>"I choose option [number]"</code></li>
+                <li>Claude will automatically update your blog's colors!</li>
+            </ol>
+            <p style="margin-top: 1rem; color: #666;">
+                <strong>Note:</strong> All options are designed with accessibility in mind and work beautifully in both light and dark modes.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+        }
+    </script>
+</body>
+</html>

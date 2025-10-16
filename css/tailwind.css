@@ -11,18 +11,18 @@
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 
   /* Colors */
-  /* Dark green theme palette */
-  --color-primary-50: oklch(0.971 0.02 150);
-  --color-primary-100: oklch(0.948 0.04 150);
-  --color-primary-200: oklch(0.899 0.08 152);
-  --color-primary-300: oklch(0.823 0.12 152);
-  --color-primary-400: oklch(0.718 0.15 150);
-  --color-primary-500: oklch(0.656 0.18 148);
-  --color-primary-600: oklch(0.592 0.19 147);
-  --color-primary-700: oklch(0.525 0.17 146);
-  --color-primary-800: oklch(0.459 0.14 145);
-  --color-primary-900: oklch(0.408 0.12 145);
-  --color-primary-950: oklch(0.284 0.09 145);
+  /* Ocean blue theme palette */
+  --color-primary-50: oklch(0.97 0.02 235);
+  --color-primary-100: oklch(0.91 0.05 235);
+  --color-primary-200: oklch(0.82 0.10 235);
+  --color-primary-300: oklch(0.72 0.14 235);
+  --color-primary-400: oklch(0.62 0.17 235);
+  --color-primary-500: oklch(0.55 0.16 235);
+  --color-primary-600: oklch(0.48 0.14 235);
+  --color-primary-700: oklch(0.42 0.12 235);
+  --color-primary-800: oklch(0.36 0.10 235);
+  --color-primary-900: oklch(0.30 0.08 235);
+  --color-primary-950: oklch(0.22 0.06 235);
 
   --color-gray-50: oklch(0.985 0.002 247.839);
   --color-gray-100: oklch(0.967 0.003 264.542);
