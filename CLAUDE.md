@@ -139,3 +139,45 @@ language: string (optional, default: "vi")
 - Contentlayer generates `.contentlayer/` directory (gitignored)
 - **Husky** + **lint-staged** run on pre-commit
 - The default blog post language is Vietnamese (`vi`), not English
+
+## Critical Patterns & Conventions
+
+### URL Encoding for Vietnamese Tags
+
+**CRITICAL**: When working with tag URLs, Vietnamese characters (and any non-ASCII characters) MUST be properly URL-encoded to match Next.js static path generation.
+
+**Problem**: Tags with Vietnamese diacritics like `'tâm-lý-học'` or `'tỉnh-thức'` need special handling because:
+1. Next.js `generateStaticParams` uses `encodeURI()` when creating static paths
+2. The generated paths become URL-encoded folders like `t%C3%A2m-l%C3%BD-h%E1%BB%8Dc`
+3. Tag links must use `encodeURIComponent()` to match these paths
+
+**Solution Pattern**:
+```typescript
+// ✅ CORRECT - Always use encodeURIComponent for tag hrefs
+<Link href={`/tags/${encodeURIComponent(tagName)}`}>
+
+// ❌ WRONG - Don't use slug() directly without encoding
+<Link href={`/tags/${slug(tagName)}`}>
+```
+
+**Files that handle tag URLs** (all must use `encodeURIComponent`):
+- `components/Tag.tsx` - Individual tag component
+- `layouts/ListLayoutWithTags.tsx` - Sidebar tag navigation
+- `components/TagsPageWrapper.tsx` - Tags page grid
+- `app/tags/[tag]/page.tsx` - Tag page route (uses `encodeURI` in `generateStaticParams`)
+
+**When comparing tag from URL pathname**:
+```typescript
+// ✅ CORRECT - Use decodeURIComponent and compare with original tag
+const currentTag = decodeURIComponent(pathname.split('/tags/')[1] || '')
+if (currentTag === tagName) { /* active state */ }
+
+// ❌ WRONG - Don't use slug() for comparison
+if (decodeURI(pathname.split('/tags/')[1]) === slug(tagName)) { /* wrong */ }
+```
+
+**Tag data files reference**: Tags are stored in their original form (with diacritics) in:
+- `app/tag-data.json` - All tags across all languages
+- `app/tag-data-en.json` - English tags only
+- `app/tag-data-vi.json` - Vietnamese tags only
+

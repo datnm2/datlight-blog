@@ -2,7 +2,6 @@
 
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
-import { slug } from 'github-slugger'
 import { useLanguage } from '@/components/LanguageProvider'
 import { useMemo } from 'react'
 import tagDataEn from 'app/tag-data-en.json'
@@ -34,7 +33,7 @@ export default function TagsPageWrapper() {
               <div key={t} className="mt-2 mr-5 mb-2">
                 <Tag text={t} />
                 <Link
-                  href={`/tags/${slug(t)}`}
+                  href={`/tags/${encodeURIComponent(t)}`}
                   className="-ml-2 text-sm font-semibold text-gray-600 uppercase dark:text-gray-300"
                   aria-label={`View posts tagged ${t}`}
                 >
