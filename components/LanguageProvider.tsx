@@ -20,8 +20,10 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>(defaultLocale)
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
     // Load language from localStorage on mount
     const savedLocale = localStorage.getItem('locale') as Locale
     if (savedLocale && (savedLocale === 'en' || savedLocale === 'vi')) {
@@ -51,7 +53,16 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     return typeof value === 'string' ? value : key
   }
 
-  // Always provide the context, even before mounting
+  // Suppress hydration warnings by not rendering until mounted
+  if (!mounted) {
+    // Return with default locale on server-side
+    return (
+      <LanguageContext.Provider value={{ locale: defaultLocale, setLocale, t }}>
+        {children}
+      </LanguageContext.Provider>
+    )
+  }
+
   return (
     <LanguageContext.Provider value={{ locale, setLocale, t }}>{children}</LanguageContext.Provider>
   )

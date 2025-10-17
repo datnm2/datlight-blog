@@ -144,36 +144,47 @@ language: string (optional, default: "vi")
 
 ### URL Encoding for Vietnamese Tags
 
-**CRITICAL**: When working with tag URLs, Vietnamese characters (and any non-ASCII characters) MUST be properly URL-encoded to match Next.js static path generation.
+**CRITICAL**: When working with tag URLs, Vietnamese characters (and any non-ASCII characters) need careful handling for Next.js routing.
 
 **Problem**: Tags with Vietnamese diacritics like `'tâm-lý-học'` or `'tỉnh-thức'` need special handling because:
-1. Next.js `generateStaticParams` uses `encodeURI()` when creating static paths
-2. The generated paths become URL-encoded folders like `t%C3%A2m-l%C3%BD-h%E1%BB%8Dc`
-3. Tag links must use `encodeURIComponent()` to match these paths
+1. Next.js automatically URL-encodes hrefs in production (but not in development)
+2. Using manual encoding (like `encodeURIComponent`) causes double-encoding in production
+3. The generated paths become URL-encoded folders like `t%C3%A2m-l%C3%BD-h%E1%BB%8Dc`
 
 **Solution Pattern**:
 ```typescript
-// ✅ CORRECT - Always use encodeURIComponent for tag hrefs
-<Link href={`/tags/${encodeURIComponent(tagName)}`}>
+// ✅ CORRECT - Let Next.js handle encoding automatically
+<Link href={`/tags/${tagName}`}>
 
-// ❌ WRONG - Don't use slug() directly without encoding
-<Link href={`/tags/${slug(tagName)}`}>
+// ❌ WRONG - Don't manually encode, it causes double-encoding in production
+<Link href={`/tags/${encodeURIComponent(tagName)}`}>
 ```
 
-**Files that handle tag URLs** (all must use `encodeURIComponent`):
+**Files that handle tag URLs** (all must pass raw tag values):
 - `components/Tag.tsx` - Individual tag component
 - `layouts/ListLayoutWithTags.tsx` - Sidebar tag navigation
 - `components/TagsPageWrapper.tsx` - Tags page grid
-- `app/tags/[tag]/page.tsx` - Tag page route (uses `encodeURI` in `generateStaticParams`)
+- `app/tags/[tag]/page.tsx` - Tag page route (pass raw `tag` in `generateStaticParams`)
+- `app/tags/[tag]/page/[page]/page.tsx` - Paginated tag pages (pass raw `tag` in `generateStaticParams`)
+
+**In generateStaticParams**:
+```typescript
+// ✅ CORRECT - Return raw tag values
+export const generateStaticParams = async () => {
+  return tagKeys.map((tag) => ({ tag: tag }))
+}
+
+// ❌ WRONG - Don't encode in generateStaticParams
+export const generateStaticParams = async () => {
+  return tagKeys.map((tag) => ({ tag: encodeURI(tag) }))
+}
+```
 
 **When comparing tag from URL pathname**:
 ```typescript
 // ✅ CORRECT - Use decodeURIComponent and compare with original tag
 const currentTag = decodeURIComponent(pathname.split('/tags/')[1] || '')
 if (currentTag === tagName) { /* active state */ }
-
-// ❌ WRONG - Don't use slug() for comparison
-if (decodeURI(pathname.split('/tags/')[1]) === slug(tagName)) { /* wrong */ }
 ```
 
 **Tag data files reference**: Tags are stored in their original form (with diacritics) in:
